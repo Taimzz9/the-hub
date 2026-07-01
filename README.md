@@ -2,7 +2,7 @@
 
 **Beta users** · v26.6.20 · A BiWize Solutions field guide
 
-> **Compiled by AI, so it reads easily.** This cheat sheet distills years of collective, practical knowledge dumped by **Wesam**, **Kimia**, and **Taim**. The AI organized and formatted it. The judgment and standards behind it are professional Human.
+> **Compiled by AI, so it reads easily.** This cheat sheet distills years of collective, practical knowledge dumped by **Wesam**, **Kimia**, and **Taim**. The AI organized and formatted it. The judgment and standards behind it are Professional Humans.
 
 ---
 
