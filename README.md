@@ -2,7 +2,7 @@
 
 **Beta users** · v26.6.20 · A BiWize Solutions field guide
 
-> **Compiled by AI, so it reads easily.** This cheat sheet distills years of collective, practical knowledge dumped by **Taim**, **Kimia**, and **Wesam**. The AI organized and formatted it. The judgment and standards behind it are theirs.
+> **Compiled by AI, so it reads easily.** This cheat sheet distills years of collective, practical knowledge dumped by **Wesam**, **Kimia**, and **Taim**. The AI organized and formatted it. The judgment and standards behind it are professional Human.
 
 ---
 
@@ -1031,8 +1031,8 @@ Before sending any important prompt, verify:
 
 ---
 
-*The **TAISAM AI Cheat Sheet** is a collective knowledge dump by Taim, Kimia, and Wesam, compiled by AI. A BiWize Solutions field guide.*
+*The **TAISAM AI Cheat Sheet** is a collective knowledge dump by Wesam, Kimia, and Taim, compiled by AI. A BiWize Solutions field guide.*
 
 *BiWize Solutions is not responsible for misuse of this tool or any AI systems it describes. All AI outputs require human review before use in production or client facing contexts.*
 
-**Beta users · v26.6.20**
+**Beta users Release · v26.6.20**
