@@ -143,6 +143,6 @@ keeping your second brain tidy while you do the work.
 
 ---
 
-*Adapted from Dominik Romwalter's "Claude + Obsidian Setup Guide" (AI Automation).
-Rewritten as a BW field guide. Obsidian-Mind is a third-party connector; install
-commands are reproduced from the original and may change as that project evolves.*
+*A BW field guide. Built around **Obsidian-Mind**, the connector that bridges
+Claude and your vault: [github.com/breferrari/obsidian-mind](https://github.com/breferrari/obsidian-mind).
+It is a third-party project, so the install commands may change as it evolves.*
