@@ -1,6 +1,6 @@
 # TAISAM AI Cheat Sheet
 
-**Beta users** · v26.6.20 · A BW field guide
+**Beta users** · v26.9.21 · A BW field guide
 
 > **Compiled by AI, so it reads easily.** This cheat sheet distills years of collective, practical knowledge dumped by **Wesam**, **Kimia**, and **Taim**. The AI organized and formatted it. The judgment and standards behind it are Professional Humans.
 
@@ -1271,4 +1271,4 @@ Before sending any important prompt, verify:
 
 *BW Solutions is not responsible for misuse of this tool or any AI systems it describes. All AI outputs require human review before use in production or client facing contexts.*
 
-**Beta users Release · v26.6.20**
+**Beta users Release · v26.9.21**
