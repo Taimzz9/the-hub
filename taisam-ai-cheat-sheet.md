@@ -1,6 +1,6 @@
 # TAISAM AI Cheat Sheet
 
-**Beta users** · v26.6.20 · A BW field guide
+**Beta users** · v26.9.21 · A BW field guide
 
 > **Compiled by AI, so it reads easily.** This cheat sheet distills years of collective, practical knowledge dumped by **Wesam**, **Kimia**, and **Taim**. The AI organized and formatted it. The judgment and standards behind it are Professional Humans.
 
@@ -31,10 +31,11 @@ Jump to the section that matches where you are today. Each section stands alone.
 
 | You are | Start at |
 |---|---|
-| Business professional, new to AI | 1, then 2, then 3 |
-| Developer starting to use AI tools | 1, then 2, then 4 |
-| Building production AI systems | 4, then 5, 6, 7 |
-| Looking for a specific prompt template | 8 (Prompt Library) |
+| Business professional, new to AI | 1, then 2, then 4 |
+| Developer starting to use AI tools | 1, then 2, then 5 |
+| Building production AI systems | 5, then 6, 7, 8 |
+| Part way through a complex, multi phase project | 2, then 3 |
+| Looking for a specific prompt template | 9 (Prompt Library) |
 
 ---
 
@@ -144,7 +145,153 @@ What did you overlook? What would a skeptic say?
 
 ---
 
-## 3. Business Professionals: Practical AI
+## 3. The Milestone Check
+
+Long sessions drift. By turn 30 the model is writing the summary from its memory of the session instead of from the thing it built. Memory is a story about the work. It is not the work. Every document written from memory carries forward every error nobody caught, and the errors get quoted as fact by the next person.
+
+A milestone check is the fix. At a defined point you stop producing and start proving. Nothing new gets written until something outside the conversation confirms it.
+
+### The move
+
+> Pause and verify rather than keep building. Fan out read only verifiers first. They check reality. You write the documents from what they prove. Nothing gets written from memory.
+
+### The five rules
+
+1. **Verification is read only.** A verifier that fixes what it finds destroys the measurement. You end up with a clean artifact and no idea how bad it was. Collect every finding first. Fix in a separate pass.
+2. **The builder does not grade the build.** Whoever did the work will confirm their own memory of it. Verification comes from a fresh session or a fresh agent with no history of building the thing.
+3. **One question per verifier.** Scoped narrow, answerable yes or no. Fan out by question, not by file. A broad brief produces broad reassurance.
+4. **No evidence, no claim.** Every line in the resulting document cites where it was proven: file and line, command output, cell reference, source link, named person. What cannot be proven is labelled UNVERIFIED in the document. Not dropped, not softened.
+5. **The verifier outranks the session.** If a verifier contradicts something established earlier in the conversation, the verifier wins, and the contradiction gets stated out loud rather than quietly reconciled.
+
+### When to run one
+
+Run it before any document other people will act on (status, handoff, sign off, client send), before one phase starts depending on the phase before it, before a demo, and before anyone says done. Also run it after a context compaction, after roughly 20 turns of continuous building, and any time the session's account of the work and what you can see do not match.
+
+Skip it for single file changes, throwaway work, anything you can read end to end yourself in five minutes, and open ended ideation where there is nothing yet to check against.
+
+**Cost control.** Three to seven verifiers, one question each. If the check needs more than seven, the milestone is too big and should have been two milestones.
+
+### The master prompt
+
+```
+MILESTONE CHECK. Stop building. Do not write, edit or fix anything until this is done.
+
+1. List every claim this project currently rests on: what is built, what works,
+   what was decided, what I have been told is finished.
+2. For each claim, name the one piece of evidence that would prove it and where
+   that evidence lives.
+3. Fan out one read only verifier per claim. Each one gets a single yes/no
+   question, the exact scope it may read, and no permission to change anything.
+4. Report back as a table: claim | confirmed / contradicted / no evidence | evidence | scope checked.
+5. Only then write the summary, and write it from that table, not from this
+   conversation. Anything unproven is labelled UNVERIFIED in the document.
+
+If a verifier contradicts something you or I said earlier in this session, the
+verifier wins. Say so plainly.
+```
+
+### The verifier brief (one per agent)
+
+```
+You are a read only verifier. Scope: [exact files, documents or sources you may read].
+You may not edit, create, install or fix anything. If you find a problem, report it.
+Do not solve it.
+
+Question: [one question with a yes or no answer]
+
+Answer in exactly this form:
+VERDICT: confirmed / contradicted / no evidence found
+EVIDENCE: [quote, file:line, command output or source URL. No paraphrase.]
+CONFIDENCE: high / medium / low
+COULD NOT CHECK: [anything out of scope, missing or unreachable]
+
+"No evidence found" is a correct and useful answer. Do not report what should be
+true. Report what is there.
+```
+
+### Reading the results
+
+| Verdict | What it means | What you do |
+|---|---|---|
+| **Confirmed** | Evidence exists and matches the claim | Write it as fact and keep the citation attached |
+| **Contradicted** | Evidence exists and says something else | Stop. Everything downstream of this claim is now suspect. Fix before the next phase starts |
+| **No evidence** | Nobody can prove it either way | Label it UNVERIFIED in the document, then decide out loud: go find out, or accept the risk |
+
+A check that comes back 100% confirmed is usually a bad check. Either the questions were too easy or the verifiers inherited the builder's blind spot. Ask which claim was hardest to check and why.
+
+### Variations by project type
+
+Same five rules every time. What changes is the milestone, the questions, and what counts as evidence.
+
+**Software build (feature, refactor, integration).** Milestone: end of a phase, before a merge, before a demo, before anyone builds on top of it. Evidence means file and line, a command you actually ran with its real output, a test run. The claim that is usually wrong: "it works" means it ran once, on one path, on one machine.
+
+```
+- Does [feature] exist in the code? Give file and line.
+- Does it run? Paste the exact command and its actual output, not a description of it.
+- Which tests cover it? Name them, run them, paste the result.
+- What did this change break? Check every caller of every function that changed.
+- Is anything marked done in the plan that does not exist in the code?
+- What is still stubbed, mocked, hardcoded or TODO inside the path we are calling finished?
+```
+
+**Business deliverable (deck, report, memo, proposal).** Milestone: before it leaves your hands, internal or external. Evidence means the source document, the dated file, the named person who said it. The claim that is usually wrong: a number that was true last quarter, and a commitment nobody actually made.
+
+```
+- Every number in this document: where did it come from and what is the date on that source?
+- Every claim about what a client, partner or colleague said or agreed: quote the source.
+- Every commitment to a date, price or scope: who approved it and where is that written?
+- What in here was true when we started and may not be true today?
+- What would the person receiving this already know to be wrong?
+```
+
+**Data analysis or model.** Milestone: before a conclusion gets acted on or pasted into a deck. Evidence means the query, the row counts, the raw output, the rerun. The claim that is usually wrong: the conclusion is defensible but a join or filter silently dropped a third of the rows.
+
+```
+- Rerun the query as written. Report the row count and the date range it actually covers.
+- Which rows were excluded by filters, joins or nulls, and how many? Was that intended?
+- Does the number quoted in the summary match what the query returns today, exactly?
+- Is the comparison like for like: same period length, same segment definition, same currency?
+- What alternative explanation for this result have we not ruled out?
+```
+
+**Production AI system or agent.** Milestone: before it touches real users, real money or real data, and again at every scope increase. Evidence means the deployed config, the runtime tool list, eval output, logs. The claim that is usually wrong: the prompt in the documentation is not the prompt in production.
+
+```
+- What is the exact system prompt currently deployed? Paste it. Does it match the documented one?
+- What tools can this agent call at runtime? List them from the live config, not the design doc.
+- Which of those actions are irreversible, and which require human confirmation today?
+- What happens on model failure, timeout and malformed output? Point at the handling code.
+- When did the eval suite last run, on which version, and what was the result?
+- What gets logged when it acts, and who can read those logs?
+```
+
+**Research or due diligence.** Milestone: before conclusions get quoted to anyone who cannot check them. Evidence means a live URL, a page number, a named primary source. The claim that is usually wrong: a real sounding citation for a paper that does not exist.
+
+```
+- For every citation: does the source exist? Open it. Give the URL and the date accessed.
+- Does the source actually say what we claim it says? Quote the sentence.
+- Is it a primary source, or someone summarizing a primary source?
+- How old is it, and has it been superseded?
+- What is the strongest source arguing the opposite, and did we look for one?
+```
+
+**Migration, infrastructure or process change.** Milestone: before cutover, and before the old system is switched off. Evidence means state read from the live system, never the runbook. The claim that is usually wrong: the runbook describes the intended state and the system is in a different one.
+
+```
+- Read the current live state of [system]. Does it match what the plan assumes?
+- Which steps here are irreversible, and what is the rollback for each?
+- What depends on the thing we are changing that is not on our list? Search for callers, do not recall them.
+- Has this been tested against a copy of real data, or only a clean example?
+- Who is affected if this fails at 2am, and how do they find out?
+```
+
+### After the check
+
+Write the findings down before fixing anything. Then do one fix pass, ordered by what blocks the most downstream work, then a second much smaller check that confirms only the fixes. Fixing and re verifying in the same breath is how a check turns into a rewrite with no record of what was actually broken.
+
+---
+
+## 4. Business Professionals: Practical AI
 
 ### Email drafting
 
@@ -225,7 +372,7 @@ Tell me what information, if I had it, would change the outcome.
 
 ---
 
-## 4. Developers: Code and Architecture
+## 5. Developers: Code and Architecture
 
 ### Code review
 
@@ -320,7 +467,7 @@ Flag anything that looks like a workaround or hack and hypothesize why it might 
 
 ---
 
-## 5. Production AI Systems
+## 6. Production AI Systems
 
 For developers building applications with AI at the core.
 
@@ -397,7 +544,7 @@ Never let an AI failure surface as an unhandled exception to a user.
 
 ---
 
-## 6. Agentic AI and Multi-Step Systems
+## 7. Agentic AI and Multi-Step Systems
 
 For teams building systems where AI takes multiple actions autonomously.
 
@@ -445,7 +592,7 @@ Report result. Wait for confirmation before step 2.
 
 ---
 
-## 7. Advanced Prompt Engineering
+## 8. Advanced Prompt Engineering
 
 ### Chain of thought (reasoning tasks)
 
@@ -519,7 +666,7 @@ After writing the prompt, explain what tradeoffs you made and what edge cases th
 
 ---
 
-## 8. Prompt Library
+## 9. Prompt Library
 
 All prompts are copy ready. Fill the [brackets], delete the lines that do not apply, paste.
 
@@ -842,7 +989,7 @@ Write a [length] status update that:
 
 ---
 
-## 9. Anti-Patterns: What to Stop Doing
+## 10. Anti-Patterns: What to Stop Doing
 
 The most common ways smart people waste AI capacity.
 
@@ -867,12 +1014,15 @@ If the output contains specific facts, numbers, citations, or proper names, veri
 ### Session drift
 After 15 to 20 turns, models can lose track of earlier constraints. Symptom: the model stops following rules it followed earlier. Fix: paste key constraints into a new message, or start a fresh session with a context dump.
 
+### Letting the builder grade its own work
+Asking the same session that produced the work whether the work is correct. It will confirm its own memory of what it did, confidently, because that memory is the only thing it is checking against. **Fix:** verification comes from a fresh context with a read only scope and one yes/no question. See section 3.
+
 ### Treating every problem as a prompt problem
 Sometimes the task genuinely requires human judgment, current information, or a tool the AI does not have. Ask: is this a task AI can do well, or am I reaching?
 
 ---
 
-## 10. Ethics and Responsibility
+## 11. Ethics and Responsibility
 
 ### The shift in responsibility
 
@@ -894,7 +1044,7 @@ Large model calls have real environmental and financial costs. Use the right mod
 
 ---
 
-## 11. Claude Code: Slash Commands
+## 12. Claude Code: Slash Commands
 
 Claude Code is Anthropic's CLI and IDE agent. Commands run in the terminal session or IDE chat panel. This is the full built-in command set from the official reference at code.claude.com/docs/en/commands (verified 2026-07-06). Some are skill- or workflow-backed but ship by default.
 
@@ -1121,4 +1271,4 @@ Before sending any important prompt, verify:
 
 *BW Solutions is not responsible for misuse of this tool or any AI systems it describes. All AI outputs require human review before use in production or client facing contexts.*
 
-**Beta users Release · v26.6.20**
+**Beta users Release · v26.9.21**
